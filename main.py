@@ -1,3 +1,6 @@
+import random
+
+
 class Grid:
     def __init__(self, gridSize):
         self.__grid = []
@@ -43,10 +46,13 @@ class Cell:
 
 class Match:
     def __init__(self):
-        gridSize = int(input("Enter grid size: "))
-        self.__grid = Grid(gridSize)
-        self.__grid.generateGrid()
         self.__currentPlayer = 1
+        self.configureMatch()
+
+    def configureMatch(self):
+        self.__gridSize = int(input("Enter grid size: "))
+        self.__grid = Grid(self.__gridSize)
+        self.__grid.generateGrid()
 
     def playerOneTurn(self):
         self.__grid.outputGrid()
@@ -66,6 +72,21 @@ class Match:
         print("PLAYER TWO TURN")
         row = int(input("Enter row: "))
         column = int(input("Enter column: "))
+        cell = self.__grid.getCell(row - 1, column - 1)
+        if cell.getAssignedPlayer() == None:
+            cell.changeAssignedPlayer(2)
+            cell.changeSymbol("O")
+            self.__currentPlayer = 1
+        else:
+            print("You can only select empty cells")
+
+    def botTurn(self):
+        self.__grid.outputGrid()
+        print("BOT TURN")
+        row = random.randint(0, self.__gridSize)
+        print("Enter row:", row)
+        column = random.randint(0, self.__gridSize)
+        print("Enter column:", column)
         cell = self.__grid.getCell(row - 1, column - 1)
         if cell.getAssignedPlayer() == None:
             cell.changeAssignedPlayer(2)
