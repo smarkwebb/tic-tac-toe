@@ -41,22 +41,36 @@ class Cell:
 class Match:
     def __init__(self):
         gridSize = int(input("Enter grid size: "))
-        grid = Grid(gridSize)
-        grid.generateGrid()
+        self.__grid = Grid(gridSize)
+        self.__grid.generateGrid()
+        self.__currentPlayer = 1
 
-    def playerOneTurn(self, grid):
-        grid.outputGrid()
+    def playerOneTurn(self):
+        self.__grid.outputGrid()
+        print("PLAYER ONE TURN")
         row = int(input("Enter row: "))
         column = int(input("Enter column: "))
-        cell = grid.getCell(row - 1, column - 1)
+        cell = self.__grid.getCell(row - 1, column - 1)
         cell.changeSymbol("X")
+        self.__currentPlayer = 2
 
-    def playerTwoTurn(self, grid):
-        grid.outputGrid()
+    def playerTwoTurn(self):
+        self.__grid.outputGrid()
+        print("PLAYER TWO TURN")
         row = int(input("Enter row: "))
         column = int(input("Enter column: "))
-        cell = grid.getCell(row - 1, column - 1)
+        cell = self.__grid.getCell(row - 1, column - 1)
         cell.changeSymbol("O")
+        self.__currentPlayer = 1
+
+    def update(self):
+        if self.__currentPlayer == 1:
+            self.playerOneTurn()
+        else:
+            self.playerTwoTurn()
 
 
 game = Match()
+running = True
+while running:
+    game.update()
