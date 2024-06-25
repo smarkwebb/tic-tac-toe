@@ -7,10 +7,23 @@ class Grid:
         for row in range(0, self.__gridSize):
             self.__grid.append([])
             for column in range(0, self.__gridSize):
-                self.__grid[row].append("-")
+                symbol = Symbol("-", None)
+                self.__grid[row].append(symbol)
 
     def outputGrid(self):
         for row in range(0, self.__gridSize):
             for column in range(0, self.__gridSize):
-                print(self.__grid[row][column], end="")
+                print(self.__grid[row][column].getSymbol(), end="")
             print("")
+
+
+class Symbol:
+    def __init__(self, symbol, assignedPlayer):
+        self.__symbol = symbol
+        self.__assignedPlayer = assignedPlayer
+
+    def getSymbol(self):
+        return self.__symbol
+
+    def getAssignedPlayer(self):
+        return self.__assignedPlayer
