@@ -7,7 +7,7 @@ class Grid:
         for row in range(0, self.__gridSize):
             self.__grid.append([])
             for column in range(0, self.__gridSize):
-                symbol = Symbol("-", None)
+                symbol = Cell("-", None)
                 self.__grid[row].append(symbol)
 
     def outputGrid(self):
@@ -16,14 +16,41 @@ class Grid:
                 print(self.__grid[row][column].getSymbol(), end="")
             print("")
 
+    def getCell(self, row, column):
+        return self.__grid[row][column]
 
-class Symbol:
+
+class Cell:
     def __init__(self, symbol, assignedPlayer):
         self.__symbol = symbol
         self.__assignedPlayer = assignedPlayer
+
+    def changeSymbol(self, newSymbol):
+        self.__symbol = newSymbol
 
     def getSymbol(self):
         return self.__symbol
 
     def getAssignedPlayer(self):
         return self.__assignedPlayer
+
+
+class Match:
+    def __init__(self):
+        gridSize = int(input("Enter grid size: "))
+        grid = Grid(gridSize)
+        grid.generateGrid()
+        self.startMatch(grid)
+
+    def startMatch(self, grid):
+        grid.outputGrid()
+        row = int(input("Enter row: "))
+        column = int(input("Enter column: "))
+
+        cell = grid.getCell(row - 1, column - 1)
+        cell.changeSymbol("X")
+
+        grid.outputGrid()
+
+
+game = Match()
