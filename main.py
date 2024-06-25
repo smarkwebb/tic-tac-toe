@@ -16,6 +16,9 @@ class Grid:
                 print(self.__grid[row][column].getSymbol(), end="")
             print("")
 
+    def getGrid(self):
+        return self.__grid
+
     def getCell(self, row, column):
         return self.__grid[row][column]
 
@@ -40,17 +43,20 @@ class Match:
         gridSize = int(input("Enter grid size: "))
         grid = Grid(gridSize)
         grid.generateGrid()
-        self.startMatch(grid)
 
-    def startMatch(self, grid):
+    def playerOneTurn(self, grid):
         grid.outputGrid()
         row = int(input("Enter row: "))
         column = int(input("Enter column: "))
-
         cell = grid.getCell(row - 1, column - 1)
         cell.changeSymbol("X")
 
+    def playerTwoTurn(self, grid):
         grid.outputGrid()
+        row = int(input("Enter row: "))
+        column = int(input("Enter column: "))
+        cell = grid.getCell(row - 1, column - 1)
+        cell.changeSymbol("O")
 
 
 game = Match()
