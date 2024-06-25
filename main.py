@@ -31,6 +31,9 @@ class Cell:
     def changeSymbol(self, newSymbol):
         self.__symbol = newSymbol
 
+    def changeAssignedPlayer(self, newAssignedPlayer):
+        self.__assignedPlayer = newAssignedPlayer
+
     def getSymbol(self):
         return self.__symbol
 
@@ -51,8 +54,12 @@ class Match:
         row = int(input("Enter row: "))
         column = int(input("Enter column: "))
         cell = self.__grid.getCell(row - 1, column - 1)
-        cell.changeSymbol("X")
-        self.__currentPlayer = 2
+        if cell.getAssignedPlayer() == None:
+            cell.changeAssignedPlayer(1)
+            cell.changeSymbol("X")
+            self.__currentPlayer = 2
+        else:
+            print("You can only select empty cells")
 
     def playerTwoTurn(self):
         self.__grid.outputGrid()
@@ -60,8 +67,12 @@ class Match:
         row = int(input("Enter row: "))
         column = int(input("Enter column: "))
         cell = self.__grid.getCell(row - 1, column - 1)
-        cell.changeSymbol("O")
-        self.__currentPlayer = 1
+        if cell.getAssignedPlayer() == None:
+            cell.changeAssignedPlayer(2)
+            cell.changeSymbol("O")
+            self.__currentPlayer = 1
+        else:
+            print("You can only select empty cells")
 
     def update(self):
         if self.__currentPlayer == 1:
