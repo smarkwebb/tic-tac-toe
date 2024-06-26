@@ -15,6 +15,10 @@ class Grid:
                             return self.__grid[row][column].getAssignedPlayer()
                         if self.__grid[row][column].getSymbol() == self.__grid[row + 1][column].getSymbol() == self.__grid[row + 2][column].getSymbol():
                             return self.__grid[row][column].getAssignedPlayer()
+                        if self.__grid[row][column].getSymbol() == self.__grid[row + 1][column + 1].getSymbol() == self.__grid[row + 2][column + 2].getSymbol():
+                            return self.__grid[row][column].getAssignedPlayer()
+                        if self.__grid[row][column].getSymbol() == self.__grid[row - 1][column - 1].getSymbol() == self.__grid[row - 2][column - 2].getSymbol():
+                            return self.__grid[row][column].getAssignedPlayer()
                     except:
                         pass
 
@@ -95,14 +99,19 @@ class Match:
         self.__grid.outputGrid()
         print("PLAYER TWO TURN")
         row = -1
-        try:
-            while row < 0 or row > self.__gridSize:
+        while row < 0 or row > self.__gridSize:
+            try:
                 row = int(input("Enter row: "))
-            column = -1
-            while column < 0 or column > self.__gridSize:
+            except:
+                print("Row must be an integer")
+                row = -1
+        column = -1
+        while column < 0 or column > self.__gridSize:
+            try:
                 column = int(input("Enter column: "))
-        except:
-            print("Row and columns must be integers")
+            except:
+                print("Column must be an integer")
+                row = -1
         cell = self.__grid.getCell(row - 1, column - 1)
         if cell.getAssignedPlayer() == None:
             cell.changeAssignedPlayer(2)
