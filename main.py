@@ -69,8 +69,20 @@ class Match:
     def playerOneTurn(self):
         self.__grid.outputGrid()
         print("PLAYER ONE TURN")
-        row = int(input("Enter row: "))
-        column = int(input("Enter column: "))
+        row = -1
+        while row < 0 or row > self.__gridSize:
+            try:
+                row = int(input("Enter row: "))
+            except:
+                print("Row must be an integer")
+                row = -1
+        column = -1
+        while column < 0 or column > self.__gridSize:
+            try:
+                column = int(input("Enter column: "))
+            except:
+                print("Column must be an integer")
+                row = -1
         cell = self.__grid.getCell(row - 1, column - 1)
         if cell.getAssignedPlayer() == None:
             cell.changeAssignedPlayer(1)
@@ -82,8 +94,15 @@ class Match:
     def playerTwoTurn(self):
         self.__grid.outputGrid()
         print("PLAYER TWO TURN")
-        row = int(input("Enter row: "))
-        column = int(input("Enter column: "))
+        row = -1
+        try:
+            while row < 0 or row > self.__gridSize:
+                row = int(input("Enter row: "))
+            column = -1
+            while column < 0 or column > self.__gridSize:
+                column = int(input("Enter column: "))
+        except:
+            print("Row and columns must be integers")
         cell = self.__grid.getCell(row - 1, column - 1)
         if cell.getAssignedPlayer() == None:
             cell.changeAssignedPlayer(2)
