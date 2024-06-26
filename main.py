@@ -6,6 +6,18 @@ class Grid:
         self.__grid = []
         self.__gridSize = gridSize
 
+    def checkWin(self):
+        for row in range(0, self.__gridSize):
+            for column in range(0, self.__gridSize):
+                if self.__grid[row][column].getSymbol() != "-":
+                    try:
+                        if self.__grid[row][column].getSymbol() == self.__grid[row][column + 1].getSymbol() == self.__grid[row][column + 2].getSymbol():
+                            return self.__grid[row][column].getAssignedPlayer()
+                        if self.__grid[row][column].getSymbol() == self.__grid[row + 1][column].getSymbol() == self.__grid[row + 2][column].getSymbol():
+                            return self.__grid[row][column].getAssignedPlayer()
+                    except:
+                        pass
+
     def generateGrid(self):
         for row in range(0, self.__gridSize):
             self.__grid.append([])
@@ -100,9 +112,12 @@ class Match:
             self.playerOneTurn()
         else:
             self.playerTwoTurn()
+        winner = self.__grid.checkWin()
+        return winner
 
 
 game = Match()
-running = True
-while running:
-    game.update()
+winner = None
+while not winner:
+    winner = game.update()
+print("WINNER: PLAYER", winner)
